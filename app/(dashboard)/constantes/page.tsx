@@ -140,7 +140,7 @@ export default function ConstantesPage() {
                         <ConfirmDialog
                           title="Supprimer la mesure"
                           description="Supprimer cette mesure ?"
-                          onConfirm={() => remove.mutateAsync(v.id).then(() => toast.success('Supprimée'))}
+                          onConfirm={async () => { await remove.mutateAsync(v.id); toast.success('Supprimée') }}
                         >
                           <Button size="icon-sm" variant="ghost" className="text-muted-foreground hover:text-destructive">
                             <Trash2 className="w-3.5 h-3.5" />

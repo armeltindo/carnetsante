@@ -188,7 +188,7 @@ export default function RappelsPage() {
                   return (
                     <div key={r.id} className="bg-card border border-border rounded-2xl p-4 shadow-card flex items-start gap-3">
                       <button
-                        onClick={() => toggleDone.mutateAsync({ id: r.id, is_done: true }).then(() => toast.success('Marqué fait'))}
+                        onClick={async () => { await toggleDone.mutateAsync({ id: r.id, is_done: true }); toast.success('Marqué fait') }}
                         className="mt-0.5 text-muted-foreground hover:text-secondary-500 transition-colors flex-shrink-0"
                       >
                         <CheckCircle className="w-5 h-5" />
@@ -213,7 +213,7 @@ export default function RappelsPage() {
                       <ConfirmDialog
                         title="Supprimer le rappel"
                         description={`Supprimer "${r.title}" ?`}
-                        onConfirm={() => deleteReminder.mutateAsync(r.id).then(() => toast.success('Supprimé'))}
+                        onConfirm={async () => { await deleteReminder.mutateAsync(r.id); toast.success('Supprimé') }}
                       >
                         <Button size="icon-sm" variant="ghost" className="text-muted-foreground hover:text-destructive flex-shrink-0">
                           ×

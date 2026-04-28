@@ -171,7 +171,7 @@ export default function HistoriquePage() {
                   <ConfirmDialog
                     title="Supprimer l'antécédent"
                     description={`Supprimer "${r.title}" ?`}
-                    onConfirm={() => remove.mutateAsync(r.id).then(() => toast.success('Supprimé'))}
+                    onConfirm={async () => { await remove.mutateAsync(r.id); toast.success('Supprimé') }}
                   >
                     <Button size="sm" variant="ghost" className="text-destructive hover:text-destructive text-xs">Supprimer</Button>
                   </ConfirmDialog>

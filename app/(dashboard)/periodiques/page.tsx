@@ -196,7 +196,7 @@ export default function PeriodiquesPage() {
                   <ConfirmDialog
                     title="Supprimer"
                     description={`Supprimer "${p.treatment_name}" ?`}
-                    onConfirm={() => remove.mutateAsync(p.id).then(() => toast.success('Supprimé'))}
+                    onConfirm={async () => { await remove.mutateAsync(p.id); toast.success('Supprimé') }}
                   >
                     <Button size="sm" variant="ghost" className="text-destructive hover:text-destructive">Supprimer</Button>
                   </ConfirmDialog>
