@@ -25,7 +25,7 @@ import type { PeriodicTreatment } from '@/lib/types'
 const schema = z.object({
   family_member_id: z.string().min(1, 'Veuillez choisir un membre'),
   treatment_name: z.string().min(1, 'Le nom est requis'),
-  frequency_days: z.number({ coercion: true }).min(1, 'La fréquence doit être positive'),
+  frequency_days: z.coerce.number().min(1, 'La fréquence doit être positive'),
   last_date: z.string().optional(),
   notes: z.string().optional(),
 })
