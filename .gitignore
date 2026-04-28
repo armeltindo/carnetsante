@@ -1,56 +1,44 @@
-# Fichiers sensibles
+# Dépendances
+node_modules/
+.pnp
+.pnp.js
+
+# Next.js
+.next/
+out/
+
+# Variables d'environnement
 .env
-*.env.local
-*.env.production
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.production
 
-# Flutter
-.dart_tool/
-.flutter-plugins
-.flutter-plugins-dependencies
-.packages
-.pub-cache/
-.pub/
+# Build
+dist/
 build/
-*.iml
-
-# Android
-android/.gradle/
-android/local.properties
-android/key.properties
-android/app/google-services.json
-**/android/gradlew
-**/android/gradlew.bat
-**/android/gradle/wrapper/
-
-# iOS
-ios/.symlinks/
-ios/Flutter/App.framework
-ios/Flutter/Flutter.framework
-ios/Flutter/flutter_assets/
-ios/Flutter/ephemeral/
-ios/Pods/
-ios/Runner.xcworkspace/
-ios/Runner/GeneratedPluginRegistrant.*
-ios/Runner/GeneratedPluginRegistrant.h
-ios/Runner/GeneratedPluginRegistrant.m
-ios/Flutter/Generated.xcconfig
-ios/Flutter/flutter_export_environment.sh
-*.xcodeproj/**/xcshareddata/
-
-# Hive
-*.hive
-*.lock
 
 # IDE
 .vscode/
 .idea/
-*.ipr
-*.iws
 
 # OS
 .DS_Store
 Thumbs.db
 
-# Secrets
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Supabase
 supabase/.env
 supabase/seed-with-real-data.sql
