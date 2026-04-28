@@ -99,6 +99,17 @@ export interface Reminder {
   updated_at: string
 }
 
+export const VITAL_LABELS: Record<VitalType, string> = {
+  temperature: 'Température',
+  blood_pressure: 'Tension artérielle',
+  glucose: 'Glycémie',
+  weight: 'Poids',
+  height: 'Taille',
+  oxygen: 'Saturation O₂',
+  heart_rate: 'Fréquence cardiaque',
+  other: 'Autre',
+}
+
 export const VITAL_UNITS: Record<VitalType, string> = {
   temperature: '°C',
   blood_pressure: 'mmHg',

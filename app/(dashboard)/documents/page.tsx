@@ -6,9 +6,13 @@ import { PageHeader } from '@/components/layout/header'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { DocumentGrid } from '@/components/documents/document-grid'
 import { SkeletonList } from '@/components/shared/loading'
+import { EmptyState } from '@/components/shared/empty-state'
 import { useDocuments, useUploadDocument, useDeleteDocument } from '@/lib/hooks/use-vitals'
 import { useFamilyMembers } from '@/lib/hooks/use-family-members'
 import type { Document } from '@/lib/types'
+import { Users } from 'lucide-react'
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
 
 export default function DocumentsPage() {
   const [selectedMember, setSelectedMember] = useState<string>('')
@@ -40,6 +44,15 @@ export default function DocumentsPage() {
       <PageHeader title="Documents médicaux" description="Ordonnances, analyses, comptes-rendus" />
 
       <div className="p-4 lg:p-6 max-w-2xl mx-auto space-y-4">
+        {!loadingMembers && members.length === 0 && (
+          <EmptyState
+            icon={Users}
+            title="Aucun membre"
+            description="Ajoutez d'abord un membre de la famille pour gérer ses documents."
+            action={<Link href="/famille/nouveau"><Button>Ajouter un membre</Button></Link>}
+          />
+        )}
+
         {!loadingMembers && members.length > 1 && (
           <Select value={memberId} onValueChange={setSelectedMember}>
             <SelectTrigger>
@@ -51,7 +64,7 @@ export default function DocumentsPage() {
           </Select>
         )}
 
-        {isLoading ? (
+        {members.length > 0 && (isLoading ? (
           <SkeletonList count={4} />
         ) : (
           <DocumentGrid
@@ -61,7 +74,7 @@ export default function DocumentsPage() {
             memberId={memberId}
             uploading={upload.isPending}
           />
-        )}
+        ))}
       </div>
     </>
   )

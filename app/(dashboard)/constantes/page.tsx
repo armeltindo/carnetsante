@@ -15,20 +15,9 @@ import { ConfirmDialog } from '@/components/shared/confirm-dialog'
 import { Badge } from '@/components/ui/badge'
 import { useVitals, useCreateVital, useDeleteVital } from '@/lib/hooks/use-vitals'
 import { useFamilyMembers } from '@/lib/hooks/use-family-members'
-import { VITAL_UNITS, VITAL_COLORS } from '@/lib/types'
+import { VITAL_UNITS, VITAL_COLORS, VITAL_LABELS } from '@/lib/types'
 import type { Vital, VitalType } from '@/lib/types'
 import { formatDateTime } from '@/lib/utils/date'
-
-const VITAL_LABELS: Record<VitalType, string> = {
-  temperature: 'Température',
-  blood_pressure: 'Tension artérielle',
-  glucose: 'Glycémie',
-  weight: 'Poids',
-  height: 'Taille',
-  oxygen: 'Saturation O₂',
-  heart_rate: 'Fréquence cardiaque',
-  other: 'Autre',
-}
 
 export default function ConstantesPage() {
   const [open, setOpen] = useState(false)

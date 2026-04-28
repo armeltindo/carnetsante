@@ -17,26 +17,17 @@ import { EmptyState } from '@/components/shared/empty-state'
 import { SkeletonList } from '@/components/shared/loading'
 import { ConfirmDialog } from '@/components/shared/confirm-dialog'
 import { useFamilyMembers } from '@/lib/hooks/use-family-members'
-import { createClient } from '@/lib/supabase/client'
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useReminders, useCreateReminder, useToggleReminder, useDeleteReminder } from '@/lib/hooks/use-reminders'
+import { useNotifications } from '@/lib/hooks/use-notifications'
 import { formatDateTime, isOverdue } from '@/lib/utils/date'
 import type { Reminder } from '@/lib/types'
 
-function useReminders() {
-  const supabase = createClient()
-  return useQuery({
-    queryKey: ['reminders'],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from('reminders')
-        .select('*')
-        .is('deleted_at', null)
-        .order('remind_at', { ascending: true })
-      if (error) throw error
-      return data as Reminder[]
-    },
-  })
-}
+const RECURRENCE_OPTIONS = [
+  { value: 'none', label: 'Pas de récurrence' },
+  { value: 'daily', label: 'Quotidien' },
+  { value: 'weekly', label: 'Hebdomadaire' },
+  { value: 'monthly', label: 'Mensuel' },
+]
 
 const schema = z.object({
   family_member_id: z.string().optional(),
@@ -47,13 +38,6 @@ const schema = z.object({
 })
 
 type FormData = z.infer<typeof schema>
-
-const RECURRENCE_OPTIONS = [
-  { value: 'none', label: 'Pas de récurrence' },
-  { value: 'daily', label: 'Quotidien' },
-  { value: 'weekly', label: 'Hebdomadaire' },
-  { value: 'monthly', label: 'Mensuel' },
-]
 
 function ReminderForm({ members, onSubmit, onCancel }: {
   members: { id: string; name: string }[]
@@ -119,36 +103,17 @@ export default function RappelsPage() {
   const [open, setOpen] = useState(false)
   const { data: reminders = [], isLoading } = useReminders()
   const { data: members = [] } = useFamilyMembers()
-  const queryClient = useQueryClient()
-  const supabase = createClient()
-
-  const createReminder = useMutation({
-    mutationFn: async (data: Partial<Reminder>) => {
-      const { error } = await supabase.from('reminders').insert(data)
-      if (error) throw error
-    },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['reminders'] }),
-  })
-
-  const toggleDone = useMutation({
-    mutationFn: async ({ id, is_done }: { id: string; is_done: boolean }) => {
-      const { error } = await supabase.from('reminders').update({ is_done }).eq('id', id)
-      if (error) throw error
-    },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['reminders'] }),
-  })
-
-  const deleteReminder = useMutation({
-    mutationFn: async (id: string) => {
-      const { error } = await supabase.from('reminders').update({ deleted_at: new Date().toISOString() }).eq('id', id)
-      if (error) throw error
-    },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['reminders'] }),
-  })
+  const create = useCreateReminder()
+  const toggle = useToggleReminder()
+  const remove = useDeleteReminder()
+  const { supported, permission, requestPermission, scheduleReminder } = useNotifications()
 
   const handleSubmit = async (data: Partial<Reminder>) => {
-    await createReminder.mutateAsync(data)
+    await create.mutateAsync(data)
     toast.success('Rappel ajouté')
+    if (permission === 'granted' && data.remind_at) {
+      scheduleReminder(data.title!, data.description || 'Rappel santé', new Date(data.remind_at))
+    }
     setOpen(false)
   }
 
@@ -168,6 +133,18 @@ export default function RappelsPage() {
       />
 
       <div className="p-4 lg:p-6 max-w-2xl mx-auto space-y-4">
+        {/* Notification permission banner */}
+        {supported && permission === 'default' && (
+          <div className="bg-primary-50 border border-primary-200 rounded-2xl p-4 flex items-center gap-3">
+            <Bell className="w-5 h-5 text-primary-500 flex-shrink-0" />
+            <div className="flex-1">
+              <p className="text-sm font-medium text-primary-800">Activer les notifications</p>
+              <p className="text-xs text-primary-600">Recevez des alertes pour vos rappels santé</p>
+            </div>
+            <Button size="sm" onClick={requestPermission}>Activer</Button>
+          </div>
+        )}
+
         {isLoading ? (
           <SkeletonList count={3} />
         ) : reminders.length === 0 ? (
@@ -188,7 +165,7 @@ export default function RappelsPage() {
                   return (
                     <div key={r.id} className="bg-card border border-border rounded-2xl p-4 shadow-card flex items-start gap-3">
                       <button
-                        onClick={async () => { await toggleDone.mutateAsync({ id: r.id, is_done: true }); toast.success('Marqué fait') }}
+                        onClick={async () => { await toggle.mutateAsync({ id: r.id, is_done: true }); toast.success('Marqué fait') }}
                         className="mt-0.5 text-muted-foreground hover:text-secondary-500 transition-colors flex-shrink-0"
                       >
                         <CheckCircle className="w-5 h-5" />
@@ -213,7 +190,7 @@ export default function RappelsPage() {
                       <ConfirmDialog
                         title="Supprimer le rappel"
                         description={`Supprimer "${r.title}" ?`}
-                        onConfirm={async () => { await deleteReminder.mutateAsync(r.id); toast.success('Supprimé') }}
+                        onConfirm={async () => { await remove.mutateAsync(r.id); toast.success('Supprimé') }}
                       >
                         <Button size="icon-sm" variant="ghost" className="text-muted-foreground hover:text-destructive flex-shrink-0">
                           ×
@@ -231,7 +208,7 @@ export default function RappelsPage() {
                 {done.map((r) => (
                   <div key={r.id} className="bg-muted/50 border border-border rounded-2xl p-4 flex items-start gap-3 opacity-60">
                     <button
-                      onClick={() => toggleDone.mutateAsync({ id: r.id, is_done: false })}
+                      onClick={() => toggle.mutateAsync({ id: r.id, is_done: false })}
                       className="mt-0.5 text-secondary-500 flex-shrink-0"
                     >
                       <CheckCircle className="w-5 h-5 fill-secondary-500" />

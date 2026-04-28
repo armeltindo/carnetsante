@@ -8,19 +8,8 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { VITAL_UNITS } from '@/lib/types'
+import { VITAL_UNITS, VITAL_LABELS } from '@/lib/types'
 import type { Vital, VitalType, FamilyMember } from '@/lib/types'
-
-const VITAL_LABELS: Record<VitalType, string> = {
-  temperature: 'Température',
-  blood_pressure: 'Tension artérielle',
-  glucose: 'Glycémie',
-  weight: 'Poids',
-  height: 'Taille',
-  oxygen: 'Saturation O₂',
-  heart_rate: 'Fréquence cardiaque',
-  other: 'Autre',
-}
 
 const schema = z.object({
   family_member_id: z.string().min(1, 'Veuillez choisir un membre'),

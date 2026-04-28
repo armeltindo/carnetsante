@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import {
   Heart, Users, Pill, Activity, FileText, Stethoscope,
-  FolderOpen, Bell, LayoutDashboard, LogOut, ChevronRight, Menu, X
+  FolderOpen, Bell, LayoutDashboard, LogOut, ChevronRight, Menu, X, UserCircle
 } from 'lucide-react'
 import { cn } from '@/lib/utils/cn'
 import { createClient } from '@/lib/supabase/client'
@@ -20,6 +20,7 @@ const navigation = [
   { name: 'Constantes', href: '/constantes', icon: Stethoscope },
   { name: 'Documents', href: '/documents', icon: FolderOpen },
   { name: 'Rappels', href: '/rappels', icon: Bell },
+  { name: 'Mon profil', href: '/profil', icon: UserCircle },
 ]
 
 function SidebarContent({ onClose }: { onClose?: () => void }) {
