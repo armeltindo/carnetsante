@@ -1,6 +1,8 @@
 import { Sidebar } from '@/components/layout/sidebar'
 import { ErrorBoundary } from '@/components/shared/error-boundary'
 
+export const dynamic = 'force-dynamic'
+
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex h-screen bg-background">
