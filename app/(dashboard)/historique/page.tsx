@@ -150,8 +150,8 @@ export default function HistoriquePage() {
             return (
               <div key={r.id} className="bg-card border border-border rounded-2xl p-4 shadow-card">
                 <div className="flex items-start gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-purple-50 flex items-center justify-center flex-shrink-0">
-                    <Stethoscope className="w-4 h-4 text-purple-500" />
+                  <div className="w-9 h-9 rounded-xl bg-violet-50 flex items-center justify-center flex-shrink-0">
+                    <Stethoscope className="w-4 h-4 text-violet-500" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2">

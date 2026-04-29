@@ -87,7 +87,7 @@ function PeriodicForm({ defaultValues, members, onSubmit, onCancel }: {
               key={p.days}
               type="button"
               onClick={() => setValue('frequency_days', p.days)}
-              className={`text-xs py-1.5 px-2 rounded-lg border transition-colors ${watch('frequency_days') === p.days ? 'bg-primary-500 text-white border-primary-500' : 'border-border text-muted-foreground hover:border-primary-300'}`}
+              className={`text-xs py-1.5 px-2 rounded-lg border transition-colors ${watch('frequency_days') === p.days ? 'bg-primary-500 text-white border-primary-500' : 'border-border text-muted-foreground hover:border-primary-400'}`}
             >
               {p.label}
             </button>
@@ -167,7 +167,7 @@ export default function PeriodiquesPage() {
             return (
               <div key={p.id} className="bg-card border border-border rounded-2xl p-4 shadow-card">
                 <div className="flex items-start gap-3">
-                  <div className={`w-2.5 h-2.5 rounded-full mt-1.5 flex-shrink-0 ${overdue ? 'bg-red-500' : dueSoon ? 'bg-orange-400' : 'bg-secondary-500'}`} />
+                  <div className={`w-2.5 h-2.5 rounded-full mt-1.5 flex-shrink-0 ${overdue ? 'bg-destructive-500' : dueSoon ? 'bg-warning-400' : 'bg-secondary-500'}`} />
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2">
                       <div>
@@ -189,7 +189,7 @@ export default function PeriodiquesPage() {
                   </div>
                 </div>
                 <div className="mt-3 flex gap-2">
-                  <Button size="sm" variant="outline" className="flex-1 text-secondary-600 border-secondary-200 hover:bg-secondary-50" onClick={() => handleMarkTaken(p)}>
+                  <Button size="sm" variant="outline" className="flex-1 text-secondary-600 border-secondary-200 hover:bg-secondary-50 hover:border-secondary-400" onClick={() => handleMarkTaken(p)}>
                     <CheckCircle className="w-3.5 h-3.5 mr-1.5" /> Marquer pris
                   </Button>
                   <Button size="sm" variant="ghost" onClick={() => { setEditing(p); setOpen(true) }}>Modifier</Button>

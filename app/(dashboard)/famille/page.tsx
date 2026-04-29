@@ -63,7 +63,7 @@ export default function FamillePage() {
                         <span className="text-xs text-muted-foreground">Groupe {m.blood_type}</span>
                       )}
                       {m.allergies.length > 0 && (
-                        <span className="text-xs text-red-500">{m.allergies.length} allergie{m.allergies.length > 1 ? 's' : ''}</span>
+                        <span className="text-xs text-destructive-500">{m.allergies.length} allergie{m.allergies.length > 1 ? 's' : ''}</span>
                       )}
                     </div>
                   </div>

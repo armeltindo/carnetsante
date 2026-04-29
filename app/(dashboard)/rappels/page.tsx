@@ -139,7 +139,7 @@ export default function RappelsPage() {
             <Bell className="w-5 h-5 text-primary-500 flex-shrink-0" />
             <div className="flex-1">
               <p className="text-sm font-medium text-primary-800">Activer les notifications</p>
-              <p className="text-xs text-primary-600">Recevez des alertes pour vos rappels santé</p>
+              <p className="text-xs text-primary-700">Recevez des alertes pour vos rappels santé</p>
             </div>
             <Button size="sm" onClick={requestPermission}>Activer</Button>
           </div>
@@ -209,9 +209,9 @@ export default function RappelsPage() {
                   <div key={r.id} className="bg-muted/50 border border-border rounded-2xl p-4 flex items-start gap-3 opacity-60">
                     <button
                       onClick={() => toggle.mutateAsync({ id: r.id, is_done: false })}
-                      className="mt-0.5 text-secondary-500 flex-shrink-0"
+                      className="mt-0.5 text-secondary-600 flex-shrink-0"
                     >
-                      <CheckCircle className="w-5 h-5 fill-secondary-500" />
+                      <CheckCircle className="w-5 h-5 fill-secondary-600" />
                     </button>
                     <div className="flex-1 min-w-0">
                       <h3 className="font-medium text-foreground line-through">{r.title}</h3>

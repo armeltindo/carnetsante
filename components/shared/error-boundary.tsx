@@ -18,8 +18,8 @@ export class ErrorBoundary extends Component<Props, State> {
     if (this.state.hasError) {
       return (
         <div className="flex flex-col items-center justify-center min-h-[40vh] p-8 text-center gap-4">
-          <div className="w-14 h-14 rounded-2xl bg-red-50 flex items-center justify-center">
-            <AlertTriangle className="w-7 h-7 text-red-500" />
+          <div className="w-14 h-14 rounded-2xl bg-destructive-50 flex items-center justify-center">
+            <AlertTriangle className="w-7 h-7 text-destructive-500" />
           </div>
           <div>
             <h2 className="text-lg font-bold text-foreground">Une erreur est survenue</h2>

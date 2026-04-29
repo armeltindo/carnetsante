@@ -60,9 +60,9 @@ export default function DashboardPage() {
           ) : (
             <>
               <StatCard label="Membres" value={members.length} icon={Users} href="/famille" color="bg-primary-50 text-primary-500" />
-              <StatCard label="Traitements actifs" value={activeTreatments.length} icon={Pill} href="/traitements" color="bg-secondary-50 text-secondary-500" />
-              <StatCard label="Traitements périodiques" value={periodics.length} icon={Activity} href="/periodiques" color="bg-orange-50 text-orange-500" />
-              <StatCard label="Antécédents" value={records.length} icon={FileText} href="/historique" color="bg-purple-50 text-purple-500" />
+              <StatCard label="Traitements actifs" value={activeTreatments.length} icon={Pill} href="/traitements" color="bg-secondary-50 text-secondary-600" />
+              <StatCard label="Traitements périodiques" value={periodics.length} icon={Activity} href="/periodiques" color="bg-warning-50 text-warning-600" />
+              <StatCard label="Antécédents" value={records.length} icon={FileText} href="/historique" color="bg-violet-50 text-violet-500" />
             </>
           )}
         </div>
@@ -72,7 +72,7 @@ export default function DashboardPage() {
           <div>
             <div className="flex items-center justify-between mb-3">
               <h2 className="font-bold text-foreground flex items-center gap-2">
-                <AlertCircle className="w-4 h-4 text-orange-500" />
+                <AlertCircle className="w-4 h-4 text-warning-600" />
                 Traitements périodiques à faire
               </h2>
               <Link href="/periodiques" className="text-xs text-primary-600 font-medium flex items-center gap-0.5">
@@ -87,7 +87,7 @@ export default function DashboardPage() {
                   <Link key={p.id} href="/periodiques">
                     <Card className="hover:shadow-md transition-shadow">
                       <CardContent className="p-3 flex items-center gap-3">
-                        <div className={`w-2 h-2 rounded-full flex-shrink-0 ${overdue ? 'bg-red-500' : 'bg-orange-400'}`} />
+                        <div className={`w-2 h-2 rounded-full flex-shrink-0 ${overdue ? 'bg-destructive-500' : 'bg-warning-400'}`} />
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-medium text-foreground truncate">{p.treatment_name}</p>
                           {member && <p className="text-xs text-muted-foreground">{member.name}</p>}

@@ -121,7 +121,7 @@ export function MemberForm({ defaultValues, onSubmit, onCancel }: MemberFormProp
             {allergies.map((a) => (
               <span
                 key={a}
-                className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-red-50 text-red-600 text-xs font-medium border border-red-100"
+                className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-destructive-50 text-destructive-600 text-xs font-medium border border-destructive-100"
               >
                 {a}
                 <button type="button" onClick={() => setAllergies(allergies.filter((x) => x !== a))}>
@@ -142,7 +142,7 @@ export function MemberForm({ defaultValues, onSubmit, onCancel }: MemberFormProp
 
       <label className="flex items-center gap-3 cursor-pointer">
         <div
-          className={`w-10 h-6 rounded-full transition-colors ${isMain ? 'bg-primary-500' : 'bg-gray-200'}`}
+          className={`w-10 h-6 rounded-full transition-colors ${isMain ? 'bg-primary-500' : 'bg-border'}`}
           onClick={() => setValue('is_main', !isMain)}
         >
           <div className={`w-5 h-5 rounded-full bg-white shadow-sm m-0.5 transition-transform ${isMain ? 'translate-x-4' : ''}`} />

@@ -49,7 +49,7 @@ export function TreatmentCard({ treatment, memberName, onEdit, onDelete, onToggl
                         {treatment.is_active ? (
                           <><XCircle className="w-4 h-4 mr-2 text-muted-foreground" /> Marquer terminé</>
                         ) : (
-                          <><CheckCircle className="w-4 h-4 mr-2 text-green-500" /> Réactiver</>
+                          <><CheckCircle className="w-4 h-4 mr-2 text-success-500" /> Réactiver</>
                         )}
                       </DropdownMenuItem>
                     )}

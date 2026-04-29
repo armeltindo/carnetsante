@@ -85,7 +85,7 @@ export default function MembrePage({ params }: { params: Promise<{ id: string }>
               <p className="text-xs font-medium text-muted-foreground mb-1.5">Allergies</p>
               <div className="flex flex-wrap gap-1.5">
                 {member.allergies.map((a) => (
-                  <span key={a} className="px-2.5 py-1 rounded-full bg-red-50 text-red-600 text-xs font-medium border border-red-100">{a}</span>
+                  <span key={a} className="px-2.5 py-1 rounded-full bg-destructive-50 text-destructive-600 text-xs font-medium border border-destructive-100">{a}</span>
                 ))}
               </div>
             </div>
@@ -103,9 +103,9 @@ export default function MembrePage({ params }: { params: Promise<{ id: string }>
         <div className="grid grid-cols-2 gap-3">
           {[
             { icon: Pill, label: 'Traitements actifs', count: activeTreatments.length, href: '/traitements', color: 'bg-primary-50 text-primary-500' },
-            { icon: Activity, label: 'Traitements périodiques', count: periodics.length, href: '/periodiques', color: 'bg-orange-50 text-orange-500' },
-            { icon: FileText, label: 'Antécédents', count: records.length, href: '/historique', color: 'bg-purple-50 text-purple-500' },
-            { icon: Stethoscope, label: 'Constantes', count: vitals.length, href: '/constantes', color: 'bg-secondary-50 text-secondary-500' },
+            { icon: Activity, label: 'Traitements périodiques', count: periodics.length, href: '/periodiques', color: 'bg-warning-50 text-warning-600' },
+            { icon: FileText, label: 'Antécédents', count: records.length, href: '/historique', color: 'bg-violet-50 text-violet-500' },
+            { icon: Stethoscope, label: 'Constantes', count: vitals.length, href: '/constantes', color: 'bg-secondary-50 text-secondary-600' },
           ].map(({ icon: Icon, label, count, href, color }) => (
             <Link key={label} href={href}>
               <div className="bg-card border border-border rounded-2xl p-4 shadow-card hover:shadow-md transition-shadow flex items-center gap-3">

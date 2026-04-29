@@ -70,7 +70,7 @@ function DocumentCard({ doc, onDelete }: { doc: Document; onDelete?: (doc: Docum
             description={`Supprimer "${doc.name}" ? Cette action est irréversible.`}
             onConfirm={() => onDelete(doc)}
           >
-            <Button variant="ghost" size="sm" className="mt-2 w-full text-destructive hover:text-destructive hover:bg-red-50">
+            <Button variant="ghost" size="sm" className="mt-2 w-full text-destructive-500 hover:text-destructive-600 hover:bg-destructive-50">
               <Trash2 className="w-3.5 h-3.5 mr-1.5" /> Supprimer
             </Button>
           </ConfirmDialog>
